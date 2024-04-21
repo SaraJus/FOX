@@ -43,9 +43,6 @@
             color: #432075;
         }
 
-        .btn_cadastrar{
-            margin-bottom: 15px;
-        }
 
         .custom-btn {
 
