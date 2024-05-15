@@ -4,12 +4,15 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProdutoController;
 
 
-Route::get ('', [IndexController::class, 'index'])->name('index');
+
+Route::get ('/index', [IndexController::class, 'index'])->name('index');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,9 +24,13 @@ Route::get('cadastro',[CadastroController::class,'cadastro'])->name('cadastro.in
 
 Route::get ('TelaLogin', [LoginController::class, 'TelaLogin'])->name('Login.index');
 
-Route::get ('produto', [ProdutoController::class, 'produto'])->name('produto.index');
+Route::get('/produto', [ProdutoController::class,'produto'])->name('produto.index');
 
-Route::get ('show', [ProdutoController::class, 'show'])->name('produto.show');
+Route::get('/produto/{produto}',[ProdutoController::class,'show'])-> name('produto.show');
+
+Route::get('categoria',[CategoriaController::class,'categoria']);
+
+
 
 Route::get ('carrinho', [CarrinhoController::class, 'carrinho'])->name('carrinho.index');
 
@@ -32,9 +39,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get ('produto', [ProdutoController::class, 'produto'])->name('produto.index');
 
-Route::get ('show', [ProdutoController::class, 'show'])->name('show.index');
 
 
 

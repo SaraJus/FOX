@@ -18,14 +18,22 @@ class Produto extends Model
     public function Imagem(){
         return $this->hasMany(Imagem::class,'PRODUTO_ID','PRODUTO_ID');
     }
-   
+    public function Categoria(){
+        return $this->belongsto(Categoria::class, 'CATEGORIA_ID','CATEGORIA_ID');
+    }
+
+    public function estoque()
+    {
+        return $this->hasOne(Estoque::class, 'PRODUTO_ID', 'PRODUTO_ID');
+    }
+
     public function itensPedido()
     {
-        return $this->hasMany('App\PedidoItem');
+        return $this->hasMany(PedidoItem::class, 'PRODUTO_ID', 'PRODUTO_ID');
     }
 
     public function itensCarrinho()
     {
-        return $this->hasMany('App\CarrinhoItem');
+        return $this->hasMany(CarrinhoItem::class, 'PRODUTO_ID', 'PRODUTO_ID');
     }
 }
