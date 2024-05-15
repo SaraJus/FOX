@@ -25,7 +25,7 @@ Route::get ('produto', [ProdutoController::class, 'produto'])->name('produto.ind
 
 Route::get ('show', [ProdutoController::class, 'show'])->name('produto.show');
 
-
+Route::get ('carrinho', [CarrinhoController::class, 'carrinho'])->name('carrinho.index');
 
 
 Route::get('/dashboard', function () {
@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get ('carrinho', [CarrinhoController::class, 'carrinho'])->name('carrinho.index');
+    
 });
 
 require __DIR__.'/auth.php';
