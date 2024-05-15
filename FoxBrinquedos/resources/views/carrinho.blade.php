@@ -158,6 +158,10 @@
         .finalizar-compra {
             right: 0%;
         }
+
+        .table-custom {
+           
+        }
     </style>
 </head>
 
@@ -190,14 +194,28 @@
 
     <section class="d-flex justify-content-between">
         <div>
-            <ul class="list-group list-group-flush ml-5 mb-3">
-                <li class="list-group-item d-flex form-inline">
-                    <img src="https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg" alt="" class="ml-3 mr-3 img-card-car">
-                    <p class="ml-3 mr-3 mb-0">Nome do item</p>
-                    <p class="ml-3 mr-3 mb-0">preço</p>
-                    <p class="ml-3 mr-3 mb-0">quantidade</p>
-                </li>
-            </ul>
+            <table class="table table-striped table-custom ml-5 mb-3 ">
+                <thead>
+                    <tr>
+                        <th scope="col ">Imagem</th>
+                        <th scope="col">Nome do produto</th>
+                        <th scope="col">preço</th>
+                        <th scope="col">desconto</th>
+                        <th scope="col">quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+                    <tr>
+                        <td><img src="https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg" alt="" class="img-card-car"></td>
+                        <td>Nome</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
 
         <div class="finalizar-compra mr-5 mb-3">
