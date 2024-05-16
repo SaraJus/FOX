@@ -202,15 +202,15 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    @foreach ($itens as $PedidoItem )
                     <tr>
-                        <td><img src="https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg" alt="" class="img-card-car"></td>
-                        <td>Nome</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
+                        <td><img src="{{$PedidoItem->Produto->Imagem->IMAGEM_URL}}" alt="Imagem do produto" class="img-card-car"></td>
+                        <td>{{$PedidoItem->Produto->PRODUTO_NOME}}</td>
+                        <td>{{$PedidoItem->Produto->PRODUTO_PRECO}}</td>
+                        <td>{{$PedidoItem->Produto->PRODUTO_DESCONTO}}</td>
+                        <td>{{$PedidoItem->PedidoItem->ITEM_QTD}}</td>
                     </tr>
-
+                    @endforeach
                 </tbody>
             </table>
         </div>
