@@ -159,9 +159,6 @@
             right: 0%;
         }
 
-        .table-custom {
-           
-        }
     </style>
 </head>
 
@@ -205,7 +202,7 @@
                     </tr>
                 </thead>
                 <tbody>
-        
+
                     <tr>
                         <td><img src="https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg" alt="" class="img-card-car"></td>
                         <td>Nome</td>
