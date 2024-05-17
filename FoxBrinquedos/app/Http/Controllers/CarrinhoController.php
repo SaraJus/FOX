@@ -11,36 +11,35 @@ use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class CarrinhoController extends Controller
 {
-    public function index()
+    public function carrinho()
     {
-        $usuario_id = Auth::id();
-        $itens = CarrinhoItem::with('produto')->where('USUARIO_ID', $usuario_id)->get();
-        return view('carrinho.index', compact('itens'));
+        $usuarioId = auth()->id(); // Supondo que o usuário está autenticado
+        $carrinhoItens = CarrinhoItem::where('USUARIO_ID', $usuarioId)->with('produto')->get();
+
+        return view('carrinho', compact('carrinhoItens'));
     }
 
-    public function adicionar(Request $request, $produto_id)
+    public function adicionar(Request $request)
     {
-        $usuario_id = Auth::id();
-        $produto = Produto::findOrFail($produto_id);
+        $usuarioId = auth()->id();
+        $produtoId = $request->input('PRODUTO_ID');
+        $quantidade = $request->input('quantidade');
 
-        $item = CarrinhoItem::updateOrCreate(
-            ['USUARIO_ID' => $usuario_id, 'PRODUTO_ID' => $produto_id],
-            ['ITEM_QTD' => DB::raw('ITEM_QTD + 1')]
+        // Adiciona ou atualiza item no carrinho
+        $carrinhoItem = CarrinhoItem::updateOrCreate(
+            ['USUARIO_ID' => $usuarioId, 'PRODUTO_ID' => $produtoId],
+            ['ITEM_QTD' => DB::raw("ITEM_QTD + $quantidade")]
         );
 
-        return redirect()->route('carrinho.index')->with('success', 'Produto adicionado ao carrinho!');
+        return redirect()->route('carrinho')->with('success', 'Produto adicionado ao carrinho!');
     }
 
     public function remover($id)
     {
-        $item = CarrinhoItem::findOrFail($id);
-        $item->delete();
+        $usuarioId = auth()->id();
+        CarrinhoItem::where('USUARIO_ID', $usuarioId)->where('PRODUTO_ID', $id)->delete();
 
-        return redirect()->route('carrinho.index')->with('success', 'Produto removido do carrinho!');
-    }
-
-    public function carrinho(){
-    return view('carrinho');
+        return redirect()->route('carrinho')->with('success', 'Produto removido do carrinho!');
     }
 }
 

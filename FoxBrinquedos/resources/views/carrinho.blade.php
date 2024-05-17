@@ -158,7 +158,6 @@
         .finalizar-compra {
             right: 0%;
         }
-
     </style>
 </head>
 
@@ -188,51 +187,51 @@
             <hr>
         </nav>
     </header>
+    <div class="container">
+        <h1>Meu Carrinho</h1>
 
-    <section class="d-flex justify-content-between">
-        <div>
-            <table class="table table-striped table-custom ml-5 mb-3 ">
-                <thead>
-                    <tr>
-                        <th scope="col ">Imagem</th>
-                        <th scope="col">Nome do produto</th>
-                        <th scope="col">preço</th>
-                        <th scope="col">desconto</th>
-                        <th scope="col">quantidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($itens as $PedidoItem )
-                    <tr>
-                        <td><img src="{{$PedidoItem->Produto->Imagem->IMAGEM_URL}}" alt="Imagem do produto" class="img-card-car"></td>
-                        <td>{{$PedidoItem->Produto->PRODUTO_NOME}}</td>
-                        <td>{{$PedidoItem->Produto->PRODUTO_PRECO}}</td>
-                        <td>{{$PedidoItem->Produto->PRODUTO_DESCONTO}}</td>
-                        <td>{{$PedidoItem->PedidoItem->ITEM_QTD}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+        @endif
 
-        <div class="finalizar-compra mr-5 mb-3">
-            <div class="resumo-compra align-items-center">
-                <h2>Resumo da compra</h2>
-                <ul class="list-group list-group-flush mb-3">
-                    <li class="list-group-item d-flex form-inline">
-                        <p class="ml-3 mr-3 mb-0">Nome do item</p>
-                        <p class="ml-3 mr-3 mb-0">preço</p>
-                        <p class="ml-3 mr-3 mb-0">quantidade</p>
-                    </li>
-                </ul>
-                <span class="d-flex justify-content-center mb-3">Total da compra</span>
-                <button class="btn btn-finish d-flex justify-content-center">
-                    <h3>Finalizar</h3>
-                </button>
-            </div>
+        @if($carrinhoItens->isEmpty())
+        <p>Seu carrinho está vazio.</p>
+        @else
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($carrinhoItens as $item)
+                <tr>
+                    <td>{{ $item->produto->produto_nome }}</td>
+                    <td>{{ $item->item_qtd }}</td>
+                    <td>R$ {{ number_format($item->produto->produto_preco, 2, ',', '.') }}</td>
+                    <td>R$ {{ number_format($item->produto->produto_preco * $item->item_qtd, 2, ',', '.') }}</td>
+                    <td>
+                        <form action="{{ route('carrinho.remover', $item->produto_id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="total">
+            <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->produto_preco * $item->item_qtd; }), 2, ',', '.') }}</strong>
         </div>
-    </section>
-
+        @endif
+    </div>
     <footer class="d-flex">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
         <div class="redesSociais">
