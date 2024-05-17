@@ -80,15 +80,15 @@
 <body>
     
     <form action="" method="" class="form_login">
+
     <div class="div_principal">
    
-        
-       
        <div class="logo_login">
             <img src="{{asset('logo.png')}}" alt="logo" class="img_logo">
         </div>
 
         <h4>Login</h4>
+        
         <div class="form-floating mb-2">
                     <input type="email" class="form-control" id="floatingInput" placeholder="Email">
                     <label for="floatingInput">Email:</label>

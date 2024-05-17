@@ -1,4 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    
 <x-guest-layout>
+    <style>
+        
+    </style>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -6,7 +19,7 @@
         @csrf
 
         <!-- Email Address -->
-        <div>
+        <div >
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -39,13 +52,11 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3" 
-            style="background-color: #43ADDA;
-            border-color: #43ADDA;
-            color: #102B7B;" >
+            <x-primary-button class="ms-3">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
     </form>
 </x-guest-layout>
-
+</body>
+</html>
