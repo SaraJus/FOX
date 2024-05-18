@@ -22,41 +22,15 @@
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
 
-
-        .line {
-            background-color: #43ADDA;
-            width: 100%;
-            height: 35px;
-        }
-
         .logo {
             height: 75px;
             width: 75px;
         }
 
-        .logo1 {
-            width: 150px;
-        }
-
-        .sale {
-            background-color: #6ad7f4;
-            width: 500px;
-            height: 350px;
-            border-radius: 15px;
-        }
-
-        .sale1 {
-            background-color: #102b7b;
-            width: 250px;
-            height: 171px;
-            border-radius: 15px;
-        }
-
-        .card {
-            height: 250px;
-            width: 175px;
-            border-radius: 15px;
-            background-color: #444;
+        .line {
+            background-color: #43ADDA;
+            width: 100%;
+            height: 35px;
         }
 
         .botoesHeader {
@@ -158,6 +132,12 @@
         .finalizar-compra {
             right: 0%;
         }
+
+        .my-cart {
+            color: #102B7B;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
     </style>
 </head>
 
@@ -187,8 +167,9 @@
             <hr>
         </nav>
     </header>
+    <section class="d-flex justify-content-between">
     <div class="container">
-        <h1>Meu Carrinho</h1>
+        <h1 class="mt-5 mb-5 my-cart">Meu Carrinho</h1>
 
         @if(session('success'))
         <div class="alert alert-success">
@@ -197,7 +178,7 @@
         @endif
 
         @if($carrinhoItens->isEmpty())
-        <p>Seu carrinho está vazio.</p>
+        <p class="mb-5 mt-5"><b>Seu carrinho está vazio.</b></p>
         @else
         <table class="table">
             <thead>
@@ -232,7 +213,24 @@
         </div>
         @endif
     </div>
-    <footer class="d-flex">
+    <div class="finalizar-compra mr-5 mb-3">
+        <div class="resumo-compra align-items-center">
+            <h2>Resumo da compra</h2>
+            <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item d-flex form-inline">
+                    <p class="ml-3 mr-3 mb-0">Nome do item</p>
+                    <p class="ml-3 mr-3 mb-0">preço</p>
+                    <p class="ml-3 mr-3 mb-0">quantidade</p>
+                </li>
+            </ul>
+            <span class="d-flex justify-content-center mb-3">Total da compra</span>
+            <button class="btn btn-finish d-flex justify-content-center">
+                <h3>Finalizar</h3>
+            </button>
+        </div>
+    </div>
+    </section>
+    <footer class="d-flex bottom-0">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
         <div class="redesSociais">
             <p>Acompanhe nossas redes sociais</p>

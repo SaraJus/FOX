@@ -11,14 +11,7 @@ use App\Http\Controllers\ProdutoController;
 
 
 
-Route::get ('/index', [IndexController::class, 'index'])->name('index');
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
+Route::get ('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('cadastro',[CadastroController::class,'cadastro'])->name('cadastro.index');
 
@@ -28,7 +21,7 @@ Route::get('/produto', [ProdutoController::class,'produto'])->name('produto.inde
 
 Route::get('/produto/{produto}',[ProdutoController::class,'show'])-> name('produto.show');
 
-Route::get('categoria',[CategoriaController::class,'categoria']);
+Route::get('categoria',[CategoriaController::class,'categoria'])->name('');
 
 
 
