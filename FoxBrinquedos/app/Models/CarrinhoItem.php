@@ -9,15 +9,22 @@ class CarrinhoItem extends Model
 {
     use HasFactory;
 
-    protected $table = "CARRINHO_ITEM";
+    protected $table = 'CARRINHO_ITEM';
+
+    protected $fillable = ['USUARIO_ID', 'PRODUTO_ID', 'ITEM_QTD'];
+
+    public $timestamps = false;
+
+    protected $primaryKey = ['USUARIO_ID', 'PRODUTO_ID'];
+    public $incrementing = false; // Informa que a chave primária não é auto-increment
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'USUARIO_ID',);
+        return $this->belongsTo(User::class, 'USUARIO_ID');
     }
 
     public function produto()
     {
-        return $this->belongsTo(Produto::class, 'PRODUTO_ID',);
+        return $this->belongsTo(Produto::class, 'PRODUTO_ID');
     }
 }

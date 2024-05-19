@@ -11,7 +11,14 @@ use App\Http\Controllers\ProdutoController;
 
 
 
-Route::get ('/', [IndexController::class, 'index'])->name('index');
+Route::get ('/index', [IndexController::class, 'index'])->name('index');
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
 
 Route::get('cadastro',[CadastroController::class,'cadastro'])->name('cadastro.index');
 
@@ -21,7 +28,8 @@ Route::get('/produto', [ProdutoController::class,'produto'])->name('produto.inde
 
 Route::get('/produto/{produto}',[ProdutoController::class,'show'])-> name('produto.show');
 
-Route::get('categoria',[CategoriaController::class,'categoria'])->name('');
+
+Route::get('/categoria/{categoria_nome}', [ProdutoController::class, 'categoria'])->name('categoria');
 
 
 
@@ -39,8 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get ('/carrinho', [CarrinhoController::class, 'carrinho'])->name('carrinho.index');
+
+    Route::get('/carrinho', [CarrinhoController::class, 'carrinho'])->name('carrinho.index');
     Route::post('/carrinho/adicionar', [CarrinhoController::class, 'adicionar'])->name('carrinho.adicionar');
+    Route::post('/carrinho/remover/{produtoId}', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
 });
 
 require __DIR__.'/auth.php';

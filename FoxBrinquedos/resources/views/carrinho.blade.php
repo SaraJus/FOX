@@ -137,7 +137,6 @@
             color: #102B7B;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
-
     </style>
 </head>
 
@@ -148,7 +147,7 @@
             </div>
             <div class="navbar navbar-light">
                 <form class="form-inline nav-search">
-                    <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
+                    <a href="{{ route('index') }}"><img src="{{asset('logo.png')}}" alt="Logo" class="logo"></a>
                     <input class="form-control me-2 " type="search" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
                     <i class="btn btn-custom fa fa-search" type="submit"></i>
                 </form>
@@ -168,67 +167,66 @@
         </nav>
     </header>
     <section class="d-flex justify-content-between">
-    <div class="container">
-        <h1 class="mt-5 mb-5 my-cart">Meu Carrinho</h1>
+        <div class="container ml-5">
+            <h1 class="mt-5 mb-5 my-cart">Meu Carrinho</h1>
 
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @endif
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
 
-        @if($carrinhoItens->isEmpty())
-        <p class="mb-5 mt-5"><b>Seu carrinho está vazio.</b></p>
-        @else
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Produto</th>
-                    <th>Quantidade</th>
-                    <th>Preço</th>
-                    <th>Total</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($carrinhoItens as $item)
-                <tr>
-                    <td>{{ $item->produto->produto_nome }}</td>
-                    <td>{{ $item->item_qtd }}</td>
-                    <td>R$ {{ number_format($item->produto->produto_preco, 2, ',', '.') }}</td>
-                    <td>R$ {{ number_format($item->produto->produto_preco * $item->item_qtd, 2, ',', '.') }}</td>
-                    <td>
-                        <form action="{{ route('carrinho.remover', $item->produto_id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Remover</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div class="total">
-            <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->produto_preco * $item->item_qtd; }), 2, ',', '.') }}</strong>
+            @if($carrinhoItens->isEmpty())
+            <p class="mb-5 mt-5"><b>Seu carrinho está vazio.</b></p>
+            @else
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($carrinhoItens as $item)
+                    <tr>
+                        <td>{{ $item->produto->PRODUTO_NOME }}</td>
+                        <td>{{ $item->ITEM_QTD }}</td>
+                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO, 2, ',', '.') }}</td>
+                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO * $item->ITEM_QTD, 2, ',', '.') }}</td>
+                        <td>
+                            <form action="{{ route('carrinho.remover', $item->PRODUTO_ID) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="total">
+                <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->produto_preco * $item->item_qtd; }), 2, ',', '.') }}</strong>
+            </div>
+            @endif
         </div>
-        @endif
-    </div>
-    <div class="finalizar-compra mr-5 mb-3">
-        <div class="resumo-compra align-items-center">
-            <h2>Resumo da compra</h2>
-            <ul class="list-group list-group-flush mb-3">
-                <li class="list-group-item d-flex form-inline">
-                    <p class="ml-3 mr-3 mb-0">Nome do item</p>
-                    <p class="ml-3 mr-3 mb-0">preço</p>
-                    <p class="ml-3 mr-3 mb-0">quantidade</p>
-                </li>
-            </ul>
-            <span class="d-flex justify-content-center mb-3">Total da compra</span>
-            <button class="btn btn-finish d-flex justify-content-center">
-                <h3>Finalizar</h3>
-            </button>
+        <div class="finalizar-compra mr-5 mb-3">
+            <div class="resumo-compra align-items-center">
+                <h2>Resumo da compra</h2>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item d-flex form-inline">
+                        <p class="ml-3 mr-3 mb-0">Nome do item</p>
+                        <p class="ml-3 mr-3 mb-0">preço</p>
+                        <p class="ml-3 mr-3 mb-0">quantidade</p>
+                    </li>
+                </ul>
+                <span class="d-flex justify-content-center mb-3">Total da compra</span>
+                <button class="btn btn-finish d-flex justify-content-center">
+                    <h3>Finalizar</h3>
+                </button>
+            </div>
         </div>
-    </div>
     </section>
     <footer class="d-flex bottom-0">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">

@@ -169,7 +169,8 @@
         .pagination {
             justify-content: center;
         }
-        .link{
+
+        .link {
             margin: 20px;
             left: 400px;
 
@@ -232,16 +233,21 @@
         <div class="col">
             <div class="card">
                 @if($produto->Imagem->isNotEmpty())
-                <a href="{{route('produto.show',$produto-> PRODUTO_ID)}}"><img src="{{$produto->Imagem->first()->IMAGEM_URL}}" class="card-img-top" alt="..."></a>
+                <a href="{{route('produto.show',$produto->PRODUTO_ID)}}"><img src="{{$produto->Imagem->first()->IMAGEM_URL}}" class="card-img-top" alt="..."></a>
                 @else
-                <a href="{{route('produto.show',$produto-> PRODUTO_ID)}}"><img src="..." class="card-img-top" alt="Imagem Padrão"></a>
+                <a href="{{route('produto.show',$produto->PRODUTO_ID)}}"><img src="..." class="card-img-top" alt="Imagem Padrão"></a>
                 @endif
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{{route('produto.show',$produto-> PRODUTO_ID)}}">{{($produto->PRODUTO_NOME)}}</a></h5>
+                    <h5 class="card-title"><a href="{{route('produto.show',$produto->PRODUTO_ID)}}">{{($produto->PRODUTO_NOME)}}</a></h5>
                     <h6 class="card-preco">R${{($produto->PRODUTO_PRECO)}}
                         <p class="card-text">à vista</p>
                     </h6>
-                    <button class="btn btn-primary custom-btn" type="button">Adicionar</button>
+                    <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="produto_id" value="{{ $produto->PRODUTO_ID }}">
+                        <input type="hidden" name="quantidade" value="1">
+                        <button class="btn btn-primary custom-btn" type="submit">Adicionar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -249,9 +255,8 @@
     </div>
 
     <div class="d-flex justify-content-center mt-4">
-        {{$produtos ->onEachSide(0)->links()}}
+        {{$produtos->onEachSide(0)->links()}}
     </div>
-
     <footer class="d-flex">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
         <div class="redesSociais">
@@ -301,9 +306,8 @@
             });
         });
         document.getElementById('finalizar-compras').addEventListener('click', function() {
-        window.location.href = "{{ route('carrinho.index') }}";
-    });
-
+            window.location.href = "{{ route('carrinho.index') }}";
+        });
     </script>
 
 
