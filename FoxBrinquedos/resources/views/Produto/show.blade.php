@@ -263,15 +263,16 @@
                     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 
                         <!-- foreach que puxa as imagens do banco -->
+                        <!-- Imagem do Produto -->
                         <div class="carousel-inner">
-                            @foreach($produto->Imagem as $key => $img)
-                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    <img src="{{ $img->IMAGEM_URL }}" class="d-block w-100" alt="Imagem {{ $key }}">
-                                </div>
-                            @endforeach
-                        </div>
+                                @foreach($produto->Imagem as $key => $img)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                        <img src="{{ $img->IMAGEM_URL }}" class="d-block w-100" alt="Imagem {{ $key }}">
+                                    </div>
+                                @endforeach
+                            </div>
 
-                        <div class="teste">
+                        <div cteste">
                             <button type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             </button>
@@ -306,7 +307,7 @@
                     </div>
 
                     <div>
-                        <button class="btn btn-primary" type="submit" >ADICIONAR</button>
+                        <button class="btn btn-primary" type="submit">ADICIONAR</button>
                     </div>
 
                 </div>
@@ -315,8 +316,8 @@
     </div>
     <h3 class="title-desc">DESCRIÇÃO</h3>
     <textarea class="card-body2" name="descricao_produto" rows="6" cols="50" disabled>
-                        {{ $produto->PRODUTO_DESC }}
-                    </textarea>
+                            {{ $produto->PRODUTO_DESC }}
+                        </textarea>
     <!-- Footer -->
     <footer class="d-flex">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
@@ -378,17 +379,17 @@
 
         // função para calcular o valor atual - o desconto
         document.addEventListener('DOMContentLoaded', function () {
-        
-        var precoOriginal = parseFloat('{{ $produto->PRODUTO_PRECO }}');
-        var desconto = parseFloat('{{ $produto->PRODUTO_DESCONTO }}');
-        var precoComDesconto = precoOriginal - desconto;
 
-        var precoComDescontoElement = document.getElementById('precoComDesconto');
+            var precoOriginal = parseFloat('{{ $produto->PRODUTO_PRECO }}');
+            var desconto = parseFloat('{{ $produto->PRODUTO_DESCONTO }}');
+            var precoComDesconto = precoOriginal - desconto;
 
-        precoComDescontoElement.textContent = precoComDesconto.toFixed(2); // Formatar para duas casas decimais
-    });
+            var precoComDescontoElement = document.getElementById('precoComDesconto');
+
+            precoComDescontoElement.textContent = precoComDesconto.toFixed(2); // Formatar para duas casas decimais
+        });
     </script>
-    
+
 </body>
 
 </html>
