@@ -11,22 +11,15 @@ use App\Http\Controllers\ProdutoController;
 
 
 
-Route::get ('/index', [IndexController::class, 'index'])->name('index');
+Route::get('', [IndexController::class, 'index'])->name('index');
 
+Route::get('/cadastro', [CadastroController::class, 'cadastro'])->name('cadastro.index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/TelaLogin', [LoginController::class, 'TelaLogin'])->name('Login.index');
 
+Route::get('/produto', [ProdutoController::class, 'produto'])->name('produto.index');
 
-
-Route::get('cadastro',[CadastroController::class,'cadastro'])->name('cadastro.index');
-
-Route::get ('TelaLogin', [LoginController::class, 'TelaLogin'])->name('Login.index');
-
-Route::get('/produto', [ProdutoController::class,'produto'])->name('produto.index');
-
-Route::get('/produto/{produto}',[ProdutoController::class,'show'])-> name('produto.show');
+Route::get('/produto/{produto}', [ProdutoController::class, 'show'])->name('produto.show');
 
 
 Route::get('/categoria/{categoria_nome}', [ProdutoController::class, 'categoria'])->name('categoria');
@@ -50,7 +43,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/carrinho', [CarrinhoController::class, 'carrinho'])->name('carrinho.index');
     Route::post('/carrinho/adicionar', [CarrinhoController::class, 'adicionar'])->name('carrinho.adicionar');
+    Route::post('/carrinho/aumentar/{produtoId}', [CarrinhoController::class, 'aumentar'])->name('carrinho.aumentar');
+    Route::post('/carrinho/diminuir/{produtoId}', [CarrinhoController::class, 'diminuir'])->name('carrinho.diminuir');
     Route::post('/carrinho/remover/{produtoId}', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

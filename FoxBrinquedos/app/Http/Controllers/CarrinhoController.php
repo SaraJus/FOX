@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CarrinhoItem;
+use app\Models\Produto;
 use Illuminate\Support\Facades\Auth;
 
 class CarrinhoController extends Controller
@@ -20,7 +21,7 @@ class CarrinhoController extends Controller
     {
         $usuarioId = auth()->id();
         $produtoId = $request->input('produto_id');
-        $quantidade = $request->input('quantidade', 1);
+        $quantidade = $request->input('quantidade');
 
         if (is_null($produtoId)) {
             return redirect()->back()->with('error', 'Produto não encontrado.');
@@ -33,20 +34,56 @@ class CarrinhoController extends Controller
         if ($carrinhoItem) {
             $carrinhoItem->ITEM_QTD += $quantidade;
         } else {
-            CarrinhoItem::create([
+            $carrinhoItem = new CarrinhoItem([
                 'USUARIO_ID' => $usuarioId,
                 'PRODUTO_ID' => $produtoId,
                 'ITEM_QTD' => $quantidade
             ]);
         }
 
+        $carrinhoItem->save();
+
         return redirect()->route('carrinho.index')->with('success', 'Produto adicionado ao carrinho!');
     }
 
-    public function remover(Request $request, $produtoId)
+    public function aumentar($produtoId)
     {
         $usuarioId = auth()->id();
-        CarrinhoItem::where('USUARIO_ID', $usuarioId)->where('PRODUTO_ID', $produtoId)->delete();
+        $carrinhoItem = CarrinhoItem::where('USUARIO_ID', $usuarioId)
+                                     ->where('PRODUTO_ID', $produtoId)
+                                     ->first();
+
+        if ($carrinhoItem) {
+            $carrinhoItem->ITEM_QTD += 1;
+            $carrinhoItem->save();
+        }
+
+        return redirect()->route('carrinho.index');
+    }
+
+    public function diminuir($produtoId)
+    {
+        $usuarioId = auth()->id();
+        $carrinhoItem = CarrinhoItem::where('USUARIO_ID', $usuarioId)
+                                     ->where('PRODUTO_ID', $produtoId)
+                                     ->first();
+
+        if ($carrinhoItem) {
+            
+                $carrinhoItem->ITEM_QTD -= 1;
+                $carrinhoItem->save();
+
+        }
+
+        return redirect()->route('carrinho.index');
+    }
+
+    public function remover($produtoId)
+    {
+        $usuarioId = auth()->id();
+        CarrinhoItem::where('USUARIO_ID', $usuarioId)
+                    ->where('PRODUTO_ID', $produtoId)
+                    ->delete();
 
         return redirect()->route('carrinho.index')->with('success', 'Produto removido do carrinho!');
     }

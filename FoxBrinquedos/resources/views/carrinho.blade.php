@@ -110,17 +110,15 @@
             border-radius: 15px;
         }
 
-        .resumo-compra {
-            right: 0%;
-        }
-
         .btn-finish {
-            width: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
             background-color: #432075;
             border-color: #432075;
             color: white;
             font-weight: bold;
             position: relative;
+            width: 300px;
         }
 
         .btn-finish:hover {
@@ -129,13 +127,13 @@
             border-bottom: 2px solid #102B7B;
         }
 
-        .finalizar-compra {
-            right: 0%;
-        }
-
         .my-cart {
             color: #102B7B;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        .card-img-top {
+            width: 100px;
         }
     </style>
 </head>
@@ -166,9 +164,9 @@
             <hr>
         </nav>
     </header>
-    <section class="d-flex justify-content-between">
-        <div class="container ml-5">
-            <h1 class="mt-5 mb-5 my-cart">Meu Carrinho</h1>
+    <section class="">
+        <div class="container">
+            <h1 class="mt-5 mb-5 my-cart d-flex justify-content-center">Meu Carrinho</h1>
 
             @if(session('success'))
             <div class="alert alert-success">
@@ -182,49 +180,66 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Imagem</th>
                         <th>Produto</th>
                         <th>Quantidade</th>
                         <th>Preço</th>
                         <th>Total</th>
-                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($carrinhoItens as $item)
+                    @if($item->ITEM_QTD > 0)
                     <tr>
-                        <td>{{ $item->produto->PRODUTO_NOME }}</td>
-                        <td>{{ $item->ITEM_QTD }}</td>
-                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO, 2, ',', '.') }}</td>
-                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO * $item->ITEM_QTD, 2, ',', '.') }}</td>
+                        @if($item->produto->Imagem->isNotEmpty())
                         <td>
-                            <form action="{{ route('carrinho.remover', $item->PRODUTO_ID) }}" method="POST">
+                            <a href="{{ route('produto.show', $item->produto->PRODUTO_ID) }}">
+                                <img src="{{ $item->produto->Imagem->first()->IMAGEM_URL }}" class="card-img-top" alt="...">
+                            </a>
+                        </td>
+                        @else
+                        <td>
+                            <a href="{{ route('produto.show', $item->produto->PRODUTO_ID) }}">
+                                <img src="..." class="card-img-top" alt="Imagem Padrão">
+                            </a>
+                        </td>
+                        @endif
+                        <td>{{ $item->produto->PRODUTO_NOME }}</td>
+                        <td>
+                            <form action="{{ route('carrinho.aumentar', $item->PRODUTO_ID) }}" method="POST" style="display: inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Remover</button>
+                                <button type="submit" class="btn">+</button>
+                            </form>
+                            {{ $item->ITEM_QTD }}
+                            <form action="{{ route('carrinho.diminuir', $item->PRODUTO_ID) }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn">-</button>
                             </form>
                         </td>
+                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO, 2, ',', '.') }}</td>
+                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO * $item->ITEM_QTD, 2, ',', '.') }}</td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
-            <div class="total">
-                <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->produto_preco * $item->item_qtd; }), 2, ',', '.') }}</strong>
+            <div class="mt-1 mb-5 mr-5 d-flex justify-content-end">
+                <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->PRODUTO_PRECO * $item->ITEM_QTD; }), 2, ',', '.') }}</strong>
             </div>
             @endif
         </div>
-        <div class="finalizar-compra mr-5 mb-3">
-            <div class="resumo-compra align-items-center">
-                <h2>Resumo da compra</h2>
-                <ul class="list-group list-group-flush mb-3">
-                    <li class="list-group-item d-flex form-inline">
-                        <p class="ml-3 mr-3 mb-0">Nome do item</p>
-                        <p class="ml-3 mr-3 mb-0">preço</p>
-                        <p class="ml-3 mr-3 mb-0">quantidade</p>
-                    </li>
-                </ul>
-                <span class="d-flex justify-content-center mb-3">Total da compra</span>
-                <button class="btn btn-finish d-flex justify-content-center">
-                    <h3>Finalizar</h3>
-                </button>
+        <div class="mb-5">
+            <div class="gap-3 d-flex align-items-center justify-content-center">
+                <a href="{{ route( 'produto.index' )}}">
+                    <button class="btn btn-finish d-flex justify-content-center align-items-center mt-5">
+                        <h3>Volte as compras!</h3>
+                    </button>
+                </a>
+                <a href="">
+                    <button class="btn btn-finish d-flex justify-content-center align-items-center mt-5" hr>
+                        <h3>Continuar</h3>
+                    </button>
+                </a>
             </div>
         </div>
     </section>
