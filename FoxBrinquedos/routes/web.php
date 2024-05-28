@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\CarrinhoController;
-use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProdutoController;
@@ -24,7 +24,7 @@ Route::get('/produto/{produto}', [ProdutoController::class, 'show'])->name('prod
 
 Route::get('/categoria/{categoria_nome}', [ProdutoController::class, 'categoria'])->name('categoria');
 
-
+Route::get('/contato', [ContatoController::class, 'contato'])->name('contato.index');
 
 
 

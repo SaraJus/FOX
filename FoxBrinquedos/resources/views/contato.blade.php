@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fox</title>
+    <title>Document</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,6 +21,13 @@
 
         hr {
             border-color: #432075;
+        }
+
+        h2 {
+            color: #432075;
+            text-align: center;
+            font-size: 50px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
 
         .line {
@@ -232,11 +239,27 @@
         .novProd {
             margin: 0px;
         }
+
+        .btn-finish {
+            background-color: #432075;
+            border-color: #432075;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            width: 100%;
+        }
+
+        .btn-finish:hover {
+            background-color: #102B7B;
+            top: -2px;
+            border-bottom: 2px solid #102B7B;
+        }
     </style>
 </head>
 
 <body>
-    <header>
+
+    <header class="mb-5">
         <nav class="">
             <div class="line">
             </div>
@@ -267,132 +290,72 @@
             </div>
             <hr>
             <div class="d-flex justify-content-center mb-3 mt-3 navBar">
-                <a class="d-flex mr-3" href="">HOME</a>
-                <a class="d-flex mr-3" href="{{asset('produto')}}">BRINQUEDOS</a>
+                <a class="d-flex mr-3" href="{{route('index')}}">HOME</a>
+                <a class="d-flex mr-3" href="{{route('produto.index')}}">BRINQUEDOS</a>
                 <a class="d-flex mr-3" href="">CATEGORIA</a>
-                <a class="d-flex mr-3" href="{{asset('contato')}}">CONTATO</a>
+                <a class="d-flex mr-3" href="">CONTATO</a>
             </div>
             <hr>
         </nav>
     </header>
 
-    <div class="sessoes">
-        <section class="d-flex justify-content-center mb-5">
-            <img src="{{asset('promocao.png')}}" class="sale mr-5 ">
-            <div>
-                <div>
-                    <img src="{{asset('promocao2.png')}}" class="sale1 mb-2">
-                </div>
-                <div>
-                    <img src="{{asset('promocao3.png')}}" class="sale1">
-                </div>
-            </div>
-
-
-        </section>
-        <section>
-            <div class="d-flex justify-content-center mb-2">
-                <h2 class="">Categorias</h2>
-            </div>
-            <div class="cardsCategorias d-flex justify-content-center mb-2">
-                <div class="cardAzul mr-5">
-                    <a href="{{ route('categoria', 'LEGO') }}">
-                        <img class="catImg" src="{{ asset('legoCat.png') }}" alt="LEGO">
-                    </a>
-                </div>
-                <div class="cardRoxo mr-5">
-                    <a href="{{ route('categoria', 'Bonecas') }}">
-                        <img class="catImg" src="{{ asset('bonecaCat.png') }}" alt="Bonecas">
-                    </a>
-                </div>
-                <div class="cardAzul mr-5">
-                    <a href="{{ route('categoria', 'Boneco') }}">
-                        <img class="catImg" src="{{ asset('bonecosCat.png') }}" alt="Bonecos">
-                    </a>
-                </div>
-                <div class="cardRoxo mr-5">
-                    <a href="{{ route('categoria', 'Ursinhos') }}">
-                        <img class="catImg" src="{{ asset('ursoCat.png') }}" alt="Ursinhos">
-                    </a>
-                </div>
-                <div class="cardAzul">
-                    <a href="{{ route('categoria', 'Carrinhos') }}">
-                        <img class="catImg" src="{{ asset('carrinhoCat.png') }}" alt="Carrinhos">
-                    </a>
+    <section class="d-flex justify-content-center align-items-center" style="height: 464px;">
+        <div class="d-flex mt-5 mb-5 align-items-center">
+            <div class="d-grid mr-5">
+                <h2> Contate-nos</h2>
+                <h4 class="mt-2">Nosso endereço</h4>
+                <div class="mt-4">
+                    <p>175, Lugar Algum Street</p>
+                    <p>São Paulo, Sp</p>
+                    <p>Telefone: 99 99999 9999</p>
                 </div>
             </div>
-            <div class="nomeCat d-flex justify-content-center mb-3">
-                <a href="{{ route('categoria', 'LEGO') }}">Lego</a>
-                <a href="{{ route('categoria', 'Bonecas') }}">Bonecas</a>
-                <a href="{{ route('categoria', 'Boneco') }}">Bonecos</a>
-                <a href="{{ route('categoria', 'Ursinhos') }}">Ursinhos</a>
-                <a href="{{ route('categoria', 'Carrinhos') }}">Carrinhos</a>
-            </div>
-        </section>
-
-        <section>
-            <div class="d-flex justify-content-center mb-5 mt-5">
-                <h2>Novidades</h2>
-            </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4 ml-5 mr-5 mb-5">
-                @foreach($produtos as $produto)
-                <div class="col">
-                    <div class="card">
-                        @if($produto->Imagem->isNotEmpty())
-                        <a href="{{route('produto.show',$produto->PRODUTO_ID)}}"><img src="{{$produto->Imagem->first()->IMAGEM_URL}}" class="card-img-top" alt="..."></a>
-                        @else
-                        <a href="{{route('produto.show',$produto->PRODUTO_ID)}}"><img src="..." class="card-img-top" alt="Imagem Padrão"></a>
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{{route('produto.show',$produto->PRODUTO_ID)}}">{{($produto->PRODUTO_NOME)}}</a></h5>
-                            <h6 class="card-preco">R${{($produto->PRODUTO_PRECO)}}
-                                <p class="card-text">à vista</p>
-                            </h6>
-                            <form action="{{ route('carrinho.adicionar') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="produto_id" value="{{ $produto->PRODUTO_ID }}">
-                                <input type="hidden" name="quantidade" value="1">
-                                <button class="btn btn-primary custom-btn" type="submit">Adicionar</button>
-                            </form>
-                        </div>
-                    </div>
+            <div class="ml-5" style="width: 800px">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="email@example.com">
                 </div>
-                @endforeach
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nome</label>
+                    <input class="form-control" id="exampleFormControlInput1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Mensagem</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button class="btn btn-finish d-flex justify-content-center align-items-center mt-5" type="submit" hr>
+                    <h3>Enviar Formulario</h3>
+                </button>
             </div>
-        </section>
-        <section class="d-flex justify-content-center mb-5 desconto">
-            <p class="mr-3 mt-5">Descontos</p>
-            <p class="mr-3 mt-5">Brindes Surpresas</p>
-            <img src="{{asset('logo.png')}}" alt="" class="mr-3 logo1">
-            <p class="mr-3 mt-5">Frete Gratis</p>
-            <p class="mr-3 mt-5">Rápida Entrega</p>
-        </section>
-    </div>
-
-    <footer class="d-flex">
-        <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
-        <div class="redesSociais">
-            <p>Acompanhe nossas redes sociais</p>
-            <div class="d-flex">
-                <a href=""><img class="redesImg" src="{{asset('insta.png')}}" alt=""></a>
-                <a href=""><img class="redesImg" src="{{asset('wpp.png')}}" alt=""></a>
-                <a href=""><img class="redesImg" src="{{asset('face.png')}}" alt=""></a>
-                <a href=""><img class="redesImg" src="{{asset('linked.png')}}" alt=""></a>
-            </div>
-            <a href="{{asset('contato')}}"><p>Fale Conosco</p></a>
-            <p>Troca e Devolução</p>
         </div>
-        <div class="pagamento">
-            <p>Formas de Pagamento</p>
-            <div class="d-flex">
-                <img class="pagamentoImg" src="{{asset('cartao.png')}}" alt="">
-                <img class="pagamentoImg" src="{{asset('boleto.png')}}" alt="">
-                <img class="pagamentoImg" src="{{asset('pix.png')}}" alt="">
+    </section>
+
+    <footer class="mt-5">
+        <div class="d-flex">
+            <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
+            <div class="redesSociais">
+                <p>Acompanhe nossas redes sociais</p>
+                <div class="d-flex">
+                    <a href=""><img class="redesImg" src="{{asset('insta.png')}}" alt=""></a>
+                    <a href=""><img class="redesImg" src="{{asset('wpp.png')}}" alt=""></a>
+                    <a href=""><img class="redesImg" src="{{asset('face.png')}}" alt=""></a>
+                    <a href=""><img class="redesImg" src="{{asset('linked.png')}}" alt=""></a>
+                </div>
+                <p>Fale Conosco</p>
+                <p>Troca e Devolução</p>
             </div>
-            <div class="d-flex pagamentoTxt">
-                <p>Cartão</p>
-                <p>Boleto</p>
-                <p>Pix</p>
+            <div class="pagamento">
+                <p>Formas de Pagamento</p>
+                <div class="d-flex">
+                    <img class="pagamentoImg" src="{{asset('cartao.png')}}" alt="">
+                    <img class="pagamentoImg" src="{{asset('boleto.png')}}" alt="">
+                    <img class="pagamentoImg" src="{{asset('pix.png')}}" alt="">
+                </div>
+                <div class="d-flex pagamentoTxt">
+                    <p>Cartão</p>
+                    <p>Boleto</p>
+                    <p>Pix</p>
+                </div>
             </div>
         </div>
     </footer>
