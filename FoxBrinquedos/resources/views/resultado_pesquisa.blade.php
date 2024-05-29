@@ -4,22 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho</title>
+    <title>Fox</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
         hr {
             border-color: #102B7B;
         }
 
         h2 {
             color: #432075;
-            align-items: center;
-            justify-content: center;
-            display: flex;
+            text-align: center;
             font-size: 30px;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            margin-top: 10px;
+        }
+
+        .line {
+            background-color: #43ADDA;
+            height: 35px;
         }
 
         .logo {
@@ -27,21 +38,23 @@
             width: 75px;
         }
 
-        .line {
-            background-color: #43ADDA;
-            width: 100%;
-            height: 35px;
+        .logo1 {
+            width: 150px;
+        }
+
+        .card {
+            height: auto;
+            width: 175px;
+            border-radius: 15px;
+            background-color: #444;
         }
 
         .botoesHeader {
             width: 50px;
         }
 
-
-
         footer {
             background-color: #43adda;
-            width: 100%;
             height: 200px;
             border-top-right-radius: 35px;
             border-top-left-radius: 35px;
@@ -50,14 +63,11 @@
         .imgFooter {
             width: 200px;
             height: 200px;
-            left: 25px;
             position: relative;
         }
 
         .redesSociais {
             position: relative;
-            top: 25px;
-            left: 60px;
             height: 150px;
         }
 
@@ -68,7 +78,6 @@
 
         .pagamento {
             position: absolute;
-            padding-left: 1300px;
             margin-top: 40px;
             margin-right: 40px;
             right: 0px;
@@ -88,65 +97,78 @@
             font-size: 20px;
             gap: 40px;
             color: #102B7B;
+            text-align: center;
         }
 
-        .navBar :hover {
+        .navBar a:hover {
             color: #43ADDA;
         }
 
-        .navBar:visited {
+        .navBar a:visited {
             color: #102B7B;
+        }
+
+        .card-img-top {
+            width: 150px;
+            height: 150px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-left: 10px;
+            margin-top: 5px;
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            padding: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            font-family: 'Times New Roman', Times, serif;
+            display: flex;
+            padding-left: 5px;
+            margin-top: 2px;
+
         }
 
         .card {
             background-color: white;
-            margin: 40px;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .card-preco {
+            color: #432075;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 18px;
+            display: flex;
             align-items: center;
+            justify-content: center;
         }
 
-        .img-card-car {
-            width: 100px;
-            height: 100px;
-            border-radius: 15px;
-        }
-
-        .resumo-compra {
-            right: 0%;
-        }
-
-        .btn-finish {
-            width: 100%;
+        .btn-primary {
             background-color: #432075;
             border-color: #432075;
-            color: white;
-            font-weight: bold;
-            position: relative;
         }
 
-        .btn-finish:hover {
+        .btn-primary:hover {
             background-color: #102B7B;
-            top: -2px;
-            border-bottom: 2px solid #102B7B;
-        }
-
-        .finalizar-compra {
-            right: 0%;
-        }
-
-        .my-cart {
-            color: #102B7B;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            border-color: #102B7B;
         }
     </style>
 </head>
 
 <body>
     <header>
-        <nav class="">
-            <div class="line">
-            </div>
+        <nav>
+            <div class="line"></div>
             <div class="navbar navbar-light">
-
                 <form id="form-pesquisa" class="form-inline nav-search" action="{{ route('pesquisar.produto') }}" method="GET">
                     <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
                     <input id="search-input" class="form-control me-2" type="search" name="q" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
@@ -171,6 +193,7 @@
                     @endauth
                 </div>
             </div>
+            </div>
             <hr>
             <div class="d-flex justify-content-center mb-3 mt-3 navBar">
                 <a class="d-flex mr-3" href="">HOME</a>
@@ -181,69 +204,40 @@
             <hr>
         </nav>
     </header>
-    <section class="d-flex justify-content-between">
-        <div class="container ml-5">
-            <h1 class="mt-5 mb-5 my-cart">Meu Carrinho</h1>
-
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
-
-            @if($carrinhoItens->isEmpty())
-            <p class="mb-5 mt-5"><b>Seu carrinho está vazio.</b></p>
-            @else
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                        <th>Total</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($carrinhoItens as $item)
-                    <tr>
-                        <td>{{ $item->produto->PRODUTO_NOME }}</td>
-                        <td>{{ $item->ITEM_QTD }}</td>
-                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO, 2, ',', '.') }}</td>
-                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO * $item->ITEM_QTD, 2, ',', '.') }}</td>
-                        <td>
-                            <form action="{{ route('carrinho.remover', $item->PRODUTO_ID) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Remover</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="total">
-                <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->produto_preco * $item->item_qtd; }), 2, ',', '.') }}</strong>
-            </div>
-            @endif
-        </div>
-        <div class="finalizar-compra mr-5 mb-3">
-            <div class="resumo-compra align-items-center">
-                <h2>Resumo da compra</h2>
-                <ul class="list-group list-group-flush mb-3">
-                    <li class="list-group-item d-flex form-inline">
-                        <p class="ml-3 mr-3 mb-0">Nome do item</p>
-                        <p class="ml-3 mr-3 mb-0">preço</p>
-                        <p class="ml-3 mr-3 mb-0">quantidade</p>
-                    </li>
-                </ul>
-                <span class="d-flex justify-content-center mb-3">Total da compra</span>
-                <button class="btn btn-finish d-flex justify-content-center">
-                    <h3>Finalizar</h3>
-                </button>
+    <h2>Resultados da Pesquisa</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4"></div>
+    @if ($produtos->isEmpty())
+    <p>Nenhum produto encontrado para o termo de pesquisa '{{ $termoPesquisa }}'.</p>
+    @else
+    <ul>
+        @foreach($produtos as $produto)
+        <div class="col">
+            <div class="card">
+                @if($produto->Imagem->isNotEmpty())
+                <a href="{{route('produto.show',$produto->PRODUTO_ID)}}"><img src="{{$produto->Imagem->first()->IMAGEM_URL}}" class="card-img-top" alt="..."></a>
+                @else
+                <a href="{{route('produto.show',$produto->PRODUTO_ID)}}"><img src="..." class="card-img-top" alt="Imagem Padrão"></a>
+                @endif
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{route('produto.show',$produto->PRODUTO_ID)}}">{{($produto->PRODUTO_NOME)}}</a></h5>
+                    <h6 class="card-preco">R${{($produto->PRODUTO_PRECO)}}
+                        <p class="card-text">à vista</p>
+                    </h6>
+                    <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="produto_id" value="{{ $produto->PRODUTO_ID }}">
+                        <input type="hidden" name="quantidade" value="1">
+                        <button class="btn btn-primary custom-btn" type="submit">Adicionar</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </section>
-    <footer class="d-flex bottom-0">
+        @endforeach
+    </ul>
+    @endif
+
+
+    <footer class="d-flex">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
         <div class="redesSociais">
             <p>Acompanhe nossas redes sociais</p>
@@ -279,6 +273,9 @@
             window.location.href = "{{ route('pesquisar.produto') }}?q=" + encodeURIComponent(searchTerm);
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 
 </html>
