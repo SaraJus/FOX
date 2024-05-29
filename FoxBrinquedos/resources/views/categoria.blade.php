@@ -183,16 +183,16 @@
                 <div>
                     <i type="button"><img class="botoesHeader" src="{{asset('cart.png')}}" alt=""></i>
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                         Dashboard
                     </a>
                     @else
-                    <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                         Log in
                     </a>
 
                     @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                         Register
                     </a>
                     @endif
@@ -235,32 +235,8 @@
         </div>
         @endforeach
     </div>
-    
-    <h2>Quem viu também gostou</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach($produtos as $produto)
-        <div class="col">
-            <div class="card">
-                @if($produto->Imagem->isNotEmpty())
-                <a href="{{route('produto.show',$produto-> PRODUTO_ID)}}"><img src="{{$produto->Imagem->first()->IMAGEM_URL}}" class="card-img-top" alt="..."></a>
-                @else
-                <a href="{{route('produto.show',$produto-> PRODUTO_ID)}}"><img src="..." class="card-img-top" alt="Imagem Padrão"></a>
-                @endif
-                <div class="card-body">
-                    <h5 class="card-title"><a href="{{route('produto.show',$produto-> PRODUTO_ID)}}">{{($produto->PRODUTO_NOME)}}</a></h5>
-                    <h6 class="card-preco">R${{($produto->PRODUTO_PRECO)}}
-                        <p class="card-text">à vista</p>
-                    </h6>
-                    <a href="#"><button class="btn btn-primary custom-btn" type="button">Adicionar</button></a>
 
 
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-
-        
     </section>
     <footer class="d-flex">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">

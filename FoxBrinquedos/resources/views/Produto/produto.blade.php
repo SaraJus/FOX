@@ -183,11 +183,12 @@
         <nav>
             <div class="line"></div>
             <div class="navbar navbar-light">
-                <form class="form-inline nav-search">
+                <form id="form-pesquisa" class="form-inline nav-search" action="{{ route('pesquisar.produto') }}" method="GET">
                     <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
-                    <input class="form-control me-2 " type="search" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
-                    <i class="btn btn-custom fa fa-search" type="submit"></i>
+                    <input id="search-input" class="form-control me-2" type="search" name="q" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
+                    <button class="btn btn-custom fa fa-search" type="submit"></button>
                 </form>
+
                 <div>
                     @auth
                     <a href="{{ url('/dashboard') }}" class="link">
@@ -309,6 +310,16 @@
             window.location.href = "{{ route('carrinho.index') }}";
         });
     </script>
+    <script>
+        document.getElementById('form-pesquisa').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var searchTerm = document.getElementById('search-input').value.trim();
+
+            window.location.href = "{{ route('pesquisar.produto') }}?q=" + encodeURIComponent(searchTerm);
+        });
+    </script>
+
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

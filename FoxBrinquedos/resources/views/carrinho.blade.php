@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        hr {
+
+hr{
             border-color: #102B7B;
         }
-
-        h2 {
+        h2{
             color: #102B7B;
             align-items: center;
             justify-content: center;
@@ -22,15 +21,41 @@
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
 
-        .logo {
-            height: 75px;
-            width: 75px;
-        }
 
         .line {
             background-color: #43ADDA;
             width: 100%;
             height: 35px;
+        }
+
+        .logo {
+            height: 75px;
+            width: 75px;
+        }
+
+        .logo1 {
+            width: 150px;
+        }
+
+        .sale {
+            background-color: #6ad7f4;
+            width: 500px;
+            height: 350px;
+            border-radius: 15px;
+        }
+
+        .sale1 {
+            background-color: #102b7b;
+            width: 250px;
+            height: 171px;
+            border-radius: 15px;
+        }
+
+        .card {
+            height: 250px;
+            width: 175px;
+            border-radius: 15px;
+            background-color: #444;
         }
 
         .botoesHeader {
@@ -89,65 +114,30 @@
             gap: 40px;
             color: #102B7B;
         }
-
-        .navBar :hover {
-            color: #43ADDA;
+        .navBar :hover{
+            color:#43ADDA;
         }
 
-        .navBar:visited {
+        .navBar:visited{
             color: #102B7B;
         }
 
-        .card {
+        .card{
             background-color: white;
             margin: 40px;
             align-items: center;
         }
 
-        .img-card-car {
-            width: 100px;
-            height: 100px;
-            border-radius: 15px;
-        }
-
-        .resumo-compra {
-            right: 0%;
-        }
-
-        .btn-finish {
-            width: 100%;
-            background-color: #432075;
-            border-color: #432075;
-            color: white;
-            font-weight: bold;
-            position: relative;
-        }
-
-        .btn-finish:hover {
-            background-color: #102B7B;
-            top: -2px;
-            border-bottom: 2px solid #102B7B;
-        }
-
-        .finalizar-compra {
-            right: 0%;
-        }
-
-        .my-cart {
-            color: #102B7B;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        }
     </style>
 </head>
-
 <body>
-    <header>
+<header>
         <nav class="">
             <div class="line">
             </div>
             <div class="navbar navbar-light">
-                <form class="form-inline nav-search">
-                    <a href="{{ route('index') }}"><img src="{{asset('logo.png')}}" alt="Logo" class="logo"></a>
+                <form class="form-inline nav-search" >
+                    <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
                     <input class="form-control me-2 " type="search" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
                     <i class="btn btn-custom fa fa-search" type="submit"></i>
                 </form>
@@ -166,69 +156,12 @@
             <hr>
         </nav>
     </header>
-    <section class="d-flex justify-content-between">
-        <div class="container ml-5">
-            <h1 class="mt-5 mb-5 my-cart">Meu Carrinho</h1>
 
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
+    <section>
 
-            @if($carrinhoItens->isEmpty())
-            <p class="mb-5 mt-5"><b>Seu carrinho está vazio.</b></p>
-            @else
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                        <th>Total</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($carrinhoItens as $item)
-                    <tr>
-                        <td>{{ $item->produto->PRODUTO_NOME }}</td>
-                        <td>{{ $item->ITEM_QTD }}</td>
-                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO, 2, ',', '.') }}</td>
-                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO * $item->ITEM_QTD, 2, ',', '.') }}</td>
-                        <td>
-                            <form action="{{ route('carrinho.remover', $item->PRODUTO_ID) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Remover</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="total">
-                <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->produto_preco * $item->item_qtd; }), 2, ',', '.') }}</strong>
-            </div>
-            @endif
-        </div>
-        <div class="finalizar-compra mr-5 mb-3">
-            <div class="resumo-compra align-items-center">
-                <h2>Resumo da compra</h2>
-                <ul class="list-group list-group-flush mb-3">
-                    <li class="list-group-item d-flex form-inline">
-                        <p class="ml-3 mr-3 mb-0">Nome do item</p>
-                        <p class="ml-3 mr-3 mb-0">preço</p>
-                        <p class="ml-3 mr-3 mb-0">quantidade</p>
-                    </li>
-                </ul>
-                <span class="d-flex justify-content-center mb-3">Total da compra</span>
-                <button class="btn btn-finish d-flex justify-content-center">
-                    <h3>Finalizar</h3>
-                </button>
-            </div>
-        </div>
     </section>
-    <footer class="d-flex bottom-0">
+
+    <footer class="d-flex">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
         <div class="redesSociais">
             <p>Acompanhe nossas redes sociais</p>
@@ -256,5 +189,4 @@
         </div>
     </footer>
 </body>
-
 </html>
