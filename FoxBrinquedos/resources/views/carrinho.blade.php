@@ -22,41 +22,15 @@
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
 
-
-        .line {
-            background-color: #43ADDA;
-            width: 100%;
-            height: 35px;
-        }
-
         .logo {
             height: 75px;
             width: 75px;
         }
 
-        .logo1 {
-            width: 150px;
-        }
-
-        .sale {
-            background-color: #6ad7f4;
-            width: 500px;
-            height: 350px;
-            border-radius: 15px;
-        }
-
-        .sale1 {
-            background-color: #102b7b;
-            width: 250px;
-            height: 171px;
-            border-radius: 15px;
-        }
-
-        .card {
-            height: 250px;
-            width: 175px;
-            border-radius: 15px;
-            background-color: #444;
+        .line {
+            background-color: #43ADDA;
+            width: 100%;
+            height: 35px;
         }
 
         .botoesHeader {
@@ -158,6 +132,11 @@
         .finalizar-compra {
             right: 0%;
         }
+
+        .my-cart {
+            color: #102B7B;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
     </style>
 </head>
 
@@ -168,7 +147,7 @@
             </div>
             <div class="navbar navbar-light">
                 <form class="form-inline nav-search">
-                    <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
+                    <a href="{{ route('index') }}"><img src="{{asset('logo.png')}}" alt="Logo" class="logo"></a>
                     <input class="form-control me-2 " type="search" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
                     <i class="btn btn-custom fa fa-search" type="submit"></i>
                 </form>
@@ -187,19 +166,51 @@
             <hr>
         </nav>
     </header>
-
     <section class="d-flex justify-content-between">
-        <div>
-            <ul class="list-group list-group-flush ml-5 mb-3">
-                <li class="list-group-item d-flex form-inline">
-                    <img src="https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg" alt="" class="ml-3 mr-3 img-card-car">
-                    <p class="ml-3 mr-3 mb-0">Nome do item</p>
-                    <p class="ml-3 mr-3 mb-0">preço</p>
-                    <p class="ml-3 mr-3 mb-0">quantidade</p>
-                </li>
-            </ul>
-        </div>
+        <div class="container ml-5">
+            <h1 class="mt-5 mb-5 my-cart">Meu Carrinho</h1>
 
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            @if($carrinhoItens->isEmpty())
+            <p class="mb-5 mt-5"><b>Seu carrinho está vazio.</b></p>
+            @else
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($carrinhoItens as $item)
+                    <tr>
+                        <td>{{ $item->produto->PRODUTO_NOME }}</td>
+                        <td>{{ $item->ITEM_QTD }}</td>
+                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO, 2, ',', '.') }}</td>
+                        <td>R$ {{ number_format($item->produto->PRODUTO_PRECO * $item->ITEM_QTD, 2, ',', '.') }}</td>
+                        <td>
+                            <form action="{{ route('carrinho.remover', $item->PRODUTO_ID) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="total">
+                <strong>Total: R$ {{ number_format($carrinhoItens->sum(function($item) { return $item->produto->produto_preco * $item->item_qtd; }), 2, ',', '.') }}</strong>
+            </div>
+            @endif
+        </div>
         <div class="finalizar-compra mr-5 mb-3">
             <div class="resumo-compra align-items-center">
                 <h2>Resumo da compra</h2>
@@ -217,8 +228,7 @@
             </div>
         </div>
     </section>
-
-    <footer class="d-flex">
+    <footer class="d-flex bottom-0">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
         <div class="redesSociais">
             <p>Acompanhe nossas redes sociais</p>

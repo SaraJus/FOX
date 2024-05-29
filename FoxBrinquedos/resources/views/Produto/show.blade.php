@@ -152,11 +152,7 @@
         }
 
         /* Estilos para os botões de quantidade */
-        .btn_adicionar {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-        }
+
 
         /* Estilos para o card do corpo do produto */
         .card-body2 {
@@ -223,7 +219,7 @@
 <body>
     <!-- Conteúdo do cabeçalho -->
     <header>
-        <nav class="">
+        <nav>
             <div class="line"></div>
             <div class="navbar navbar-light">
                 <form class="form-inline nav-search">
@@ -233,16 +229,74 @@
                     <i class="btn btn-custom fa fa-search" type="submit"></i>
                 </form>
                 <div>
-                    <i type="button"><img class="botoesHeader" src="{{asset('cart.png')}}" alt=""></i>
-                    <i type="button"><img class="botoesHeader" src="{{asset('user.png')}}" alt=""></i>
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="link">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="link">
+                            Log in
+                        </a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="link">
+                                Register
+                            </a>
+                        @endif
+                    @endauth
+                </div>
+                <div class="dropdown">
+                    <i class="btn dropdown-toggle" type="button" id="cartDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img class="botoesHeader" src="{{asset('cart.png')}}" alt="Cart">
+                    </i>
+                    <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="cartDropdown"
+                        style="width: 300px;">
+                        <ul class="list-unstyled dropdown-list">
+                            <li class="dropdown-total">Total: R$ 0,00</li>
+                        </ul>
+                        <button class="btn btn-primary w-100 mt-3" id="finalizar-compras">Finalizar Compras</button>
+                    </div>
                 </div>
             </div>
             <hr>
-
             <div class="d-flex justify-content-center mb-3 mt-3 navBar">
                 <a class="d-flex mr-3" href="{{route('produto.index')}}">HOME</a>
                 <a class="d-flex mr-3" href="">BRINQUEDOS</a>
-                <a class="d-flex mr-3" href="">CATEGORIA</a>
+
+                <nav class="navbar navbar-expand-lg ">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#"></a>
+                        <!-- mexe com o tempo de visualização -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarNavDarDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+
+                                    <a href="categoria"></a><select name="categoria_id" id="categoria_id">
+                                        @foreach(\App\Models\Categoria::all() as $categoria)
+                                            <option value="{{$categoria->id}}">{{$categoria->CATEGORIA_NOME}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                
+                <!-- <a href="categoria"></a><select name="categoria_id" id="categoria_id">
+                    @foreach(\App\Models\Categoria::all() as $categoria)
+                        <option value="{{$categoria->id}}">{{$categoria->CATEGORIA_NOME}}
+                        </option>
+                    @endforeach
+                </select> -->
                 <a class="d-flex mr-3" href="">CONTATO</a>
             </div>
             <hr>
@@ -257,21 +311,16 @@
         <div class="card_produto">
             <div class="row g-0">
                 <div class="col-md-4">
-
-                    <!-- Imagem do Produto -->
-
                     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-
                         <!-- foreach que puxa as imagens do banco -->
-                        <!-- Imagem do Produto -->
                         <div class="carousel-inner">
-                                @foreach($produto->Imagem as $key => $img)
-                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <img src="{{ $img->IMAGEM_URL }}" class="d-block w-100" alt="Imagem {{ $key }}">
-                                    </div>
-                                @endforeach
-                            </div>
-
+                            @foreach($produto->Imagem as $key => $img)
+                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                    <img src="{{ $img->IMAGEM_URL }}" class="d-block w-100" alt="Imagem {{ $key }}">
+                                </div>
+                            @endforeach
+                        </div>
+                        <!-- carrosel -->
                         <div cteste">
                             <button type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -305,10 +354,13 @@
 
 
                     </div>
-
-                    <div>
-                        <button class="btn btn-primary" type="submit">ADICIONAR</button>
-                    </div>
+                    <!-- botão adicionar -->
+                    <form action="{{ route('carrinho.adicionar') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="produto_id" value="{{ $produto->PRODUTO_ID }}">
+                        <input type="hidden" name="quantidade" value="1">
+                        <button class="btn btn-primary custom-btn" type="submit">Adicionar</button>
+                    </form>
 
                 </div>
             </div>
@@ -389,6 +441,7 @@
             precoComDescontoElement.textContent = precoComDesconto.toFixed(2); // Formatar para duas casas decimais
         });
     </script>
+
 
 </body>
 
