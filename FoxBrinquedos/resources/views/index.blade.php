@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
                html {
             margin: 0%;
@@ -266,11 +268,57 @@
                 </div>
             </div>
             <hr>
-            <div class="d-flex justify-content-center mb-3 mt-3 navBar">
-                <a class="d-flex mr-3" href="">HOME</a>
-                <a class="d-flex mr-3" href="{{asset('produto')}}">BRINQUEDOS</a>
-                <a class="d-flex mr-3" href="">CATEGORIA</a>
-                <a class="d-flex mr-3" href="">CONTATO</a>
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <!-- Insira o logo aqui se necessário -->
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                        <ul class="navbar-nav" style="font-size: 25px;">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('index')}}">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('produto.index')}}">BRINQUEDOS</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="categoriaDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    CATEGORIA
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="categoriaDropdown">
+                                  
+                                    @foreach(\App\Models\Categoria::all() as $categoria)
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('categoria', ['categoria_nome' => $categoria->CATEGORIA_NOME]) }}">
+                                                {{$categoria->CATEGORIA_NOME}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">CONTATO</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+                
+                <!-- <a href="categoria"></a><select name="categoria_id" id="categoria_id">
+                    @foreach(\App\Models\Categoria::all() as $categoria)
+                        <option value="{{$categoria->id}}">{{$categoria->CATEGORIA_NOME}}
+                        </option>
+                    @endforeach
+                </select> -->
+                
             </div>
             <hr>
         </nav>

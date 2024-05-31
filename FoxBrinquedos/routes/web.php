@@ -28,6 +28,8 @@ Route::get('/produto/{produto}',[ProdutoController::class,'show'])-> name('produ
 
 Route::get('/categoria/{categoria_nome}', [ProdutoController::class, 'categoria'])->name('categoria');
 
+
+
 Route::get('finalizar', [FinalizarController::class,'finalizar'])->name('finalizar.index');
 
 
