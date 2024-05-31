@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fox</title>
     <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -176,38 +176,79 @@
             <div class="line"></div>
             <div class="navbar navbar-light">
 
-                <form id="form-pesquisa" class="form-inline nav-search" action="{{ route('pesquisar.produto') }}" method="GET">
+                <form id="form-pesquisa" class="form-inline nav-search" action="{{ route('pesquisar.produto') }}"
+                    method="GET">
                     <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
-                    <input id="search-input" class="form-control me-2" type="search" name="q" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
+                    <input id="search-input" class="form-control me-2" type="search" name="q" placeholder="Pesquisar"
+                        aria-label="Search" style=" width:326px; ">
                     <button class="btn btn-custom fa fa-search" type="submit"></button>
                 </form>
                 <div>
                     <i type="button"><img class="botoesHeader" src="{{asset('cart.png')}}" alt=""></i>
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                        Dashboard
-                    </a>
+                        <a href="{{ url('/dashboard') }}"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            Dashboard
+                        </a>
                     @else
-                    <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                        Log in
-                    </a>
+                        <a href="{{ route('login') }}"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            Log in
+                        </a>
 
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                        Register
-                    </a>
-                    @endif
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
+                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                                Register
+                            </a>
+                        @endif
                     @endauth
                 </div>
             </div>
             </div>
             <hr>
-            <div class="d-flex justify-content-center mb-3 mt-3 navBar">
-                <a class="d-flex mr-3" href="">HOME</a>
-                <a class="d-flex mr-3" href="">BRINQUEDOS</a>
-                <a class="d-flex mr-3" href="">CATEGORIA</a>
-                <a class="d-flex mr-3" href="">CONTATO</a>
-            </div>
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <!-- Insira o logo aqui se necessário -->
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                        <ul class="navbar-nav" style="font-size: 25px;">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('index')}}">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('produto.index')}}">BRINQUEDOS</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="categoriaDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    CATEGORIA
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="categoriaDropdown">
+
+                                    @foreach(\App\Models\Categoria::where('CATEGORIA_ATIVO', 1)->get() as $categoriaItem)
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('categoria', ['categoria_nome' => $categoriaItem->CATEGORIA_NOME]) }}">
+                                                {{ $categoriaItem->CATEGORIA_NOME }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">CONTATO</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
             <hr>
         </nav>
     </header>
@@ -216,69 +257,70 @@
             <h2>{{ $categoria->CATEGORIA_NOME }}</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach($produtos as $produto)
-                <div class="col">
-                    <div class="card">
-                        @if($produto->Imagem->isNotEmpty())
-                        <a href="{{route('produto.show',$produto-> PRODUTO_ID)}}"><img src="{{$produto->Imagem->first()->IMAGEM_URL}}" class="card-img-top" alt="..."></a>
-                        @else
-                        <a href="{{route('produto.show',$produto-> PRODUTO_ID)}}"><img src="..." class="card-img-top" alt="Imagem Padrão"></a>
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{{route('produto.show',$produto-> PRODUTO_ID)}}">{{($produto->PRODUTO_NOME)}}</a></h5>
-                            <h6 class="card-preco">R${{($produto->PRODUTO_PRECO)}}
-                                <p class="card-text">à vista</p>
-                            </h6>
-                            <a href="#"><button class="btn btn-primary custom-btn" type="button">Adicionar</button></a>
+                    <div class="col">
+                        <div class="card">
+                            @if($produto->Imagem->isNotEmpty())
+                                <a href="{{route('produto.show', $produto->PRODUTO_ID)}}"><img
+                                        src="{{$produto->Imagem->first()->IMAGEM_URL}}" class="card-img-top" alt="..."></a>
+                            @else
+                                <a href="{{route('produto.show', $produto->PRODUTO_ID)}}"><img src="..." class="card-img-top"
+                                        alt="Imagem Padrão"></a>
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title"><a
+                                        href="{{route('produto.show', $produto->PRODUTO_ID)}}">{{($produto->PRODUTO_NOME)}}</a>
+                                </h5>
+                                <h6 class="card-preco">R${{($produto->PRODUTO_PRECO)}}
+                                    <p class="card-text">à vista</p>
+                                </h6>
+                                <a href="#"><button class="btn btn-primary custom-btn" type="button">Adicionar</button></a>
 
 
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
 
-         
 
-  
-    <footer class="d-flex">
-        <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
-        <div class="redesSociais">
-            <p>Acompanhe nossas redes sociais</p>
-            <div class="d-flex">
-                <a href=""><img class="redesImg" src="{{asset('insta.png')}}" alt=""></a>
-                <a href=""><img class="redesImg" src="{{asset('wpp.png')}}" alt=""></a>
-                <a href=""><img class="redesImg" src="{{asset('face.png')}}" alt=""></a>
-                <a href=""><img class="redesImg" src="{{asset('linked.png')}}" alt=""></a>
-            </div>
-            <p>Fale Conosco</p>
-            <p>Troca e Devolução</p>
-        </div>
-        <div class="pagamento">
-            <p>Formas de Pagamento</p>
-            <div class="d-flex">
-                <img class="pagamentoImg" src="{{asset('cartao.png')}}" alt="">
-                <img class="pagamentoImg" src="{{asset('boleto.png')}}" alt="">
-                <img class="pagamentoImg" src="{{asset('pix.png')}}" alt="">
-            </div>
-            <div class="d-flex pagamentoTxt">
-                <p>Cartão</p>
-                <p>Boleto</p>
-                <p>Pix</p>
-            </div>
-        </div>
-    </footer>
-    <script>
-        document.getElementById('form-pesquisa').addEventListener('submit', function(event) {
-            event.preventDefault();
 
-            var searchTerm = document.getElementById('search-input').value.trim();
 
-            window.location.href = "{{ route('pesquisar.produto') }}?q=" + encodeURIComponent(searchTerm);
-        });
-    </script>
+            <footer class="d-flex">
+                <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
+                <div class="redesSociais">
+                    <p>Acompanhe nossas redes sociais</p>
+                    <div class="d-flex">
+                        <a href=""><img class="redesImg" src="{{asset('insta.png')}}" alt=""></a>
+                        <a href=""><img class="redesImg" src="{{asset('wpp.png')}}" alt=""></a>
+                        <a href=""><img class="redesImg" src="{{asset('face.png')}}" alt=""></a>
+                        <a href=""><img class="redesImg" src="{{asset('linked.png')}}" alt=""></a>
+                    </div>
+                    <p>Fale Conosco</p>
+                    <p>Troca e Devolução</p>
+                </div>
+                <div class="pagamento">
+                    <p>Formas de Pagamento</p>
+                    <div class="d-flex">
+                        <img class="pagamentoImg" src="{{asset('cartao.png')}}" alt="">
+                        <img class="pagamentoImg" src="{{asset('boleto.png')}}" alt="">
+                        <img class="pagamentoImg" src="{{asset('pix.png')}}" alt="">
+                    </div>
+                    <div class="d-flex pagamentoTxt">
+                        <p>Cartão</p>
+                        <p>Boleto</p>
+                        <p>Pix</p>
+                    </div>
+                </div>
+            </footer>
+            <script>
+                document.getElementById('form-pesquisa').addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    var searchTerm = document.getElementById('search-input').value.trim();
+
+                    window.location.href = "{{ route('pesquisar.produto') }}?q=" + encodeURIComponent(searchTerm);
+                });
+            </script>
 </body>
 
 </html>
-
-
-

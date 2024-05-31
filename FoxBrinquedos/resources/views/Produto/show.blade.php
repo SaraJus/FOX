@@ -23,6 +23,7 @@
             text-align: center;
             font-size: 30px;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            margin-top: 20px;
         }
 
 
@@ -365,12 +366,12 @@
                                     CATEGORIA
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="categoriaDropdown">
-                                   
-                                    @foreach(\App\Models\Categoria::all() as $categoria)
+
+                                    @foreach(\App\Models\Categoria::where('CATEGORIA_ATIVO', 1)->get() as $categoriaItem)
                                         <li>
                                             <a class="dropdown-item"
-                                                href="{{ route('categoria', ['categoria_nome' => $categoria->CATEGORIA_NOME]) }}">
-                                                {{$categoria->CATEGORIA_NOME}}
+                                                href="{{ route('categoria', ['categoria_nome' => $categoriaItem->CATEGORIA_NOME]) }}">
+                                                {{ $categoriaItem->CATEGORIA_NOME }}
                                             </a>
                                         </li>
                                     @endforeach
