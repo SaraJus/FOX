@@ -235,8 +235,8 @@
                         <h3>Volte as compras!</h3>
                     </button>
                 </a>
-                <a href="">
-                    <button class="btn btn-finish d-flex justify-content-center align-items-center mt-5" hr>
+                <a href="{{ route( 'endereco.create' )}}">
+                    <button class="btn btn-finish d-flex justify-content-center align-items-center mt-5">
                         <h3>Continuar</h3>
                     </button>
                 </a>

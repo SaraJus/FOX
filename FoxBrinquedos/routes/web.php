@@ -4,10 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\EnderecoController;
+use App\Http\Controllers\PedidoController;
 
 
 
@@ -21,11 +24,19 @@ Route::get('/produto', [ProdutoController::class, 'produto'])->name('produto.ind
 
 Route::get('/produto/{produto}', [ProdutoController::class, 'show'])->name('produto.show');
 
+Route::get('/endereco', [EnderecoController::class, 'create'])->name('endereco.create');
+
+Route::post('/endereco', [EnderecoController::class, 'store'])->name('endereco.store');
 
 Route::get('/categoria/{categoria_nome}', [ProdutoController::class, 'categoria'])->name('categoria');
 
 Route::get('/contato', [ContatoController::class, 'contato'])->name('contato.index');
 
+Route::get('/finalizar', [CarrinhoController::class,'finalizar'])->name('finalizar');
+
+Route::post('/pedido/finalizar', [PedidoController::class, 'finalizar'])->name('pedido.finalizar');
+
+Route::get('/pedido/concluido', [PedidoController::class, 'concluido'])->name('pedido.concluido');
 
 
 Route::get('/dashboard', function () {
