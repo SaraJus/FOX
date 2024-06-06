@@ -15,7 +15,10 @@ use App\Http\Controllers\PedidoController;
 
 
 Route::get('', [IndexController::class, 'index'])->name('index');
-Route::get('/pesquisar-produto', 'App\Http\Controllers\ProdutoController@pesquisar')->name('pesquisar.produto');
+
+Route::get('/cadastro', [CadastroController::class, 'cadastro'])->name('cadastro.index');
+
+Route::get('/TelaLogin', [LoginController::class, 'TelaLogin'])->name('Login.index');
 
 Route::get('/produto', [ProdutoController::class, 'produto'])->name('produto.index');
 
@@ -35,11 +38,16 @@ Route::post('/pedido/finalizar', [PedidoController::class, 'finalizar'])->name('
 
 Route::get('/pedido/concluido', [PedidoController::class, 'concluido'])->name('pedido.concluido');
 
-Route::get('/pedidos',[PedidoController::class, 'pedidos'])->name('pedidos.index');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
 
 Route::middleware('auth')->group(function () {
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

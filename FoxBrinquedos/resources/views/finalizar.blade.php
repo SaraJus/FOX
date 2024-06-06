@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Compra</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+=======
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -16,6 +20,28 @@
             color: #102B7B;
         }
 
+<<<<<<< HEAD
+=======
+        h2 {
+            color: #102B7B;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 50px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        h3 {
+            color: #102B7B;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 30px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .line {
             background-color: #43ADDA;
             width: 100%;
@@ -132,6 +158,28 @@
         .pagamentoTxt {
             gap: 20px;
         }
+<<<<<<< HEAD
+=======
+
+        .btn-finish {
+            margin-left: 10px;
+            margin-right: 10px;
+            background-color: #fff;
+            border-color: #432075;
+            color: #432075;
+            font-weight: bold;
+            position: relative;
+            width: 300px;
+        }
+
+        .btn-finish:hover {
+            background-color: #432075;
+            top: -2px;
+            border-bottom: 2px solid #432075;
+            color: #fff;
+        }
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
     </style>
 </head>
 
@@ -142,12 +190,17 @@
         <div class="navbar navbar-light">
             <form class="form-inline nav-search">
                 <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
+<<<<<<< HEAD
                 <input class="form-control me-2 " type="search" placeholder="Pesquisar" aria-label="Search"
                     style=" width:326px; ">
+=======
+                <input class="form-control me-2 " type="search" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
                 <i class="btn btn-custom fa fa-search" type="submit"></i>
             </form>
             <div>
                 @auth
+<<<<<<< HEAD
                     <a href="{{ url('/dashboard') }}" class="link">
                         Dashboard
                     </a>
@@ -167,6 +220,26 @@
             <div class="dropdown">
                 <i class="btn dropdown-toggle" type="button" id="cartDropdown" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
+=======
+                <a href="{{ url('/dashboard') }}" class="link">
+                    Dashboard
+                </a>
+                @else
+                <a href="{{ route('login') }}" class="link">
+                    Log in
+                </a>
+
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="link">
+                    Register
+                </a>
+                @endif
+                @endauth
+            </div>
+
+            <div class="dropdown">
+                <i class="btn dropdown-toggle" type="button" id="cartDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
                     <img class="botoesHeader" src="{{asset('cart.png')}}" alt="Cart">
                 </i>
                 <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="cartDropdown" style="width: 300px;">
@@ -187,6 +260,7 @@
         <hr>
     </nav>
 
+<<<<<<< HEAD
     <h1>FINALIZAR COMPRA</h1>
     <div class="endereco_entrega">
         <h4>Endereço de entrega</h4>
@@ -276,6 +350,73 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+=======
+    <div class="container">
+        <h2 class="mt-5 mb-5">Finalizar Compra</h2>
+
+        <!-- Resumo da compra -->
+        <div class="d-flex">
+            <div class="bloco-resumo">
+                <div class="card text-center card mb-3" style="width: 300px;">
+                    <h3 class="card-header">Resumo da compra</h3>
+                    <div class="card-body">
+                        <div class="resumo">
+                            <p class="card-text">QTD:</p>
+                            <p class="card-text">{{ $quantidadeTotal }}</p>
+                        </div>
+                        <div class="resumo">
+                            <p class="card-text">Preço:</p>
+                            <p class="card-text">R$ {{ number_format($valorTotal, 2, ',', '.') }}</p>
+                        </div>
+                        <div class="resumo">
+                            <p class="card-text">Frete:</p>
+                            <p>R$ 0</p>
+                        </div>
+                        <hr>
+                        <div class="resumo">
+                            <p class="card-text">Total:</p>
+                            <p class="card-text">R$ {{ number_format($valorTotal, 2, ',', '.') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de endereços -->
+            <div class="ml-5">
+
+                <form action="{{ route('pedido.finalizar') }}" method="POST">
+                    <div class="d-flex">
+                        <div class="conteiner mr-5">
+                            <h3>Escolha um Endereço para a Entrega</h3>
+                            @csrf
+
+                            <div class="form-group">
+                                @foreach($enderecos as $endereco)
+                                <hr>
+                                <div class="form-check ">
+                                    <input class="form-check-input" type="radio" name="endereco_id" id="endereco{{ $endereco->ENDERECO_ID }}" value="{{ $endereco->ENDERECO_ID }}" required>
+                                    <label class="form-check-label" for="endereco{{ $endereco->ENDERECO_ID }}">
+                                        {{ $endereco->ENDERECO_LOGRADOURO }}, {{ $endereco->ENDERECO_NUMERO }}{{ $endereco->ENDERECO_COMPLEMENTO ? ', ' . $endereco->ENDERECO_COMPLEMENTO : '' }} - {{ $endereco->ENDERECO_CEP }}, {{ $endereco->ENDERECO_CIDADE }} - {{ $endereco->ENDERECO_ESTADO }}
+                                    </label>
+                                </div>
+                                @endforeach
+                                <hr>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-finish">Finalizar Pedido</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
 </body>
 
 </html>

@@ -1,9 +1,14 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="pt-br">
+=======
+<html lang="en">
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Brinquedo</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -29,26 +34,47 @@
         }
 
         /* Linha header */
+=======
+    <title>Pedido Concluído</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        h1 {
+            text-align: center;
+            margin: 20px;
+            color: #102B7B;
+        }
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .line {
             background-color: #43ADDA;
             width: 100%;
             height: 35px;
         }
 
+<<<<<<< HEAD
         hr {
             border-color: #102B7B;
         }
 
         /* logo */
+=======
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .logo {
             height: 75px;
             width: 75px;
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .botoesHeader {
             width: 50px;
         }
 
+<<<<<<< HEAD
         /* navbar */
         .navBar {
             border-radius: 5px;
@@ -185,6 +211,28 @@
         }
 
         /* footer */
+=======
+
+        hr {
+            border-color: #102B7B;
+        }
+
+        .navBar {
+            font-size: 20px;
+            gap: 40px;
+            color: #102B7B;
+        }
+
+        .navBar:hover {
+            color: #43ADDA;
+        }
+
+
+        .navBar:visited {
+            color: #102B7B;
+        }
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         footer {
             background-color: #43adda;
             height: 200px;
@@ -193,17 +241,29 @@
             margin-top: 30px;
         }
 
+<<<<<<< HEAD
+=======
+        /* Estilos para imagens no footer */
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .imgFooter {
             width: 200px;
             height: 200px;
             position: relative;
         }
 
+<<<<<<< HEAD
+=======
+        /* Estilos para ícones de redes sociais */
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .redesImg {
             width: 50px;
             height: 50px;
         }
 
+<<<<<<< HEAD
+=======
+        /* Estilos para o bloco de formas de pagamento */
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .pagamento {
             position: absolute;
             margin-top: 40px;
@@ -220,6 +280,7 @@
         .pagamentoTxt {
             gap: 20px;
         }
+<<<<<<< HEAD
 
         /* carrossel de imagens */
         .carousel-item img {
@@ -439,10 +500,13 @@
             font-size: 18px;
             color: #102B7B;
         }
+=======
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
     </style>
 </head>
 
 <body>
+<<<<<<< HEAD
 
 
     <nav x-data="{ open: false }">
@@ -512,6 +576,45 @@
         <a class="d-flex mr-3 nav-link" href="{{route('contato.index')}}">CONTATO</a>
     </div>
     <hr>
+=======
+    <header>
+        <nav class="">
+            <div class="line">
+            </div>
+            <div class="navbar navbar-light">
+                <form class="form-inline nav-search">
+                    <img src="{{asset('logo.png')}}" alt="Logo" class="logo">
+                    <input class="form-control me-2 " type="search" placeholder="Pesquisar" aria-label="Search" style=" width:326px; ">
+                    <i class="btn btn-custom fa fa-search" type="submit"></i>
+                </form>
+                <div>
+                    <i type="button"><img class="botoesHeader" src="{{asset('cart.png')}}" alt=""></i>
+                    @auth
+                    <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Dashboard
+                    </a>
+                    @else
+                    <a href="{{ route('Login.index') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Log in
+                    </a>
+
+                    @if (Route::has('register'))
+                    <a href="{{ route('cadastro.index') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Register
+                    </a>
+                    @endif
+                    @endauth
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center mb-3 mt-3 navBar">
+                <a class="d-flex mr-3" href="">HOME</a>
+                <a class="d-flex mr-3" href="{{asset('produto')}}">BRINQUEDOS</a>
+                <a class="d-flex mr-3" href="">CATEGORIA</a>
+                <a class="d-flex mr-3" href="{{asset('contato')}}">CONTATO</a>
+            </div>
+            <hr>
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         </nav>
     </header>
 

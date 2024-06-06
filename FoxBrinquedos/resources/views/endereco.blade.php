@@ -1,9 +1,14 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="pt-br">
+=======
+<html lang="pt-BR">
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Brinquedo</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -18,6 +23,22 @@
             margin: 0;
             height: 100vh;
             width: 100%;
+=======
+    <title>Fox</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        hr {
+            border-color: #102B7B;
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         }
 
         h2 {
@@ -25,6 +46,7 @@
             text-align: center;
             font-size: 30px;
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+<<<<<<< HEAD
             margin-top: 20px;
         }
 
@@ -40,15 +62,40 @@
         }
 
         /* logo */
+=======
+            margin-top: 10px;
+        }
+
+        .line {
+            background-color: #43ADDA;
+            height: 35px;
+        }
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .logo {
             height: 75px;
             width: 75px;
         }
 
+<<<<<<< HEAD
+=======
+        .logo1 {
+            width: 150px;
+        }
+
+        .card {
+            height: auto;
+            width: 175px;
+            border-radius: 15px;
+            background-color: #444;
+        }
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .botoesHeader {
             width: 50px;
         }
 
+<<<<<<< HEAD
         /* navbar */
         .navBar {
             border-radius: 5px;
@@ -185,12 +232,17 @@
         }
 
         /* footer */
+=======
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         footer {
             background-color: #43adda;
             height: 200px;
             border-top-right-radius: 35px;
             border-top-left-radius: 35px;
+<<<<<<< HEAD
             margin-top: 30px;
+=======
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         }
 
         .imgFooter {
@@ -199,6 +251,14 @@
             position: relative;
         }
 
+<<<<<<< HEAD
+=======
+        .redesSociais {
+            position: relative;
+            height: 150px;
+        }
+
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         .redesImg {
             width: 50px;
             height: 50px;
@@ -221,6 +281,7 @@
             gap: 20px;
         }
 
+<<<<<<< HEAD
         /* carrossel de imagens */
         .carousel-item img {
             width: auto;
@@ -438,11 +499,52 @@
             cursor: pointer;
             font-size: 18px;
             color: #102B7B;
+=======
+        .navBar {
+            font-size: 20px;
+            gap: 40px;
+            color: #102B7B;
+            text-align: center;
+        }
+
+        .navBar a:hover {
+            color: #43ADDA;
+        }
+
+        .navBar a:visited {
+            color: #102B7B;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+            margin-bottom: 50px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: black;
+        }
+
+        .btn-primary {
+            background-color: #432075;
+            border-color: #432075;
+        }
+
+        .btn-primary:hover {
+            background-color: #102B7B;
+            border-color: #102B7B;
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
         }
     </style>
 </head>
 
 <body>
+<<<<<<< HEAD
 
 
     <nav x-data="{ open: false }">
@@ -512,6 +614,43 @@
         <a class="d-flex mr-3 nav-link" href="{{route('contato.index')}}">CONTATO</a>
     </div>
     <hr>
+=======
+    <header>
+        <nav>
+            <div class="line"></div>
+            <div class="navbar navbar-light">
+
+
+                <div>
+                    <i type="button"><img class="botoesHeader" src="{{asset('cart.png')}}" alt=""></i>
+                    @auth
+                    <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Dashboard
+                    </a>
+                    @else
+                    <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Log in
+                    </a>
+
+                    @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Register
+                    </a>
+                    @endif
+                    @endauth
+                </div>
+            </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center mb-3 mt-3 navBar">
+                <a class="d-flex mr-3" href="">HOME</a>
+                <a class="d-flex mr-3" href="">BRINQUEDOS</a>
+                <a class="d-flex mr-3" href="">CATEGORIA</a>
+                <a class="d-flex mr-3" href="">CONTATO</a>
+            </div>
+            <hr>
+        </nav>
+>>>>>>> 4633fa5e6741ced4bd1d8830a72bb7f54657e8be
     </header>
     <h2>Insira seu Endereço</h2>
 

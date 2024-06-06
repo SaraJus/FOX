@@ -29,7 +29,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    
     public function endereco()
     {
         return $this->hasMany(Endereco::class, 'USUARIO_ID', 'USUARIO_ID');
@@ -44,8 +43,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(CarrinhoItem::class, 'USUARIO_ID', 'USUARIO_ID');
     }
-    
-
+        
 
 
 }
