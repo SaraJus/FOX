@@ -295,7 +295,7 @@
                         @csrf
                         <input type="hidden" name="produto_id" value="{{ $produto->PRODUTO_ID }}">
                         <input type="hidden" name="quantidade" value="1">
-                        <button class="btn btn-primary custom-btn" type="submit">Adicionar</button>
+                        <button class="btn btn-primary custom-btn" type="submit" >Adicionar</button>
                     </form>
                 </div>
             </div>

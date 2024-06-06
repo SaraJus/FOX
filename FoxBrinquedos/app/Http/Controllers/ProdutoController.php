@@ -15,6 +15,7 @@ class ProdutoController extends Controller
      ;
     }
 
+
     public function show(Produto $produto){
          
          $categoria = $produto->categoria;

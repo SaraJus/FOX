@@ -14,29 +14,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        html,
         body {
             margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
+            height: 100vh;
             width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, #43ADDA 10%, transparent 10%),
-                radial-gradient(circle, #FFA800 10%, transparent 10%),
-                radial-gradient(circle, #EFEBEB 10%, transparent 10%);
-            background-position: 0 0, 50px 50px, 100px 100px;
-            background-size: 150px 150px;
-            z-index: -1;
-            opacity: 0.1;
         }
-
 
         h2 {
             color: #432075;
@@ -459,7 +441,10 @@
         }
     </style>
 </head>
-<header>
+
+<body>
+
+
     <nav x-data="{ open: false }">
         <div class="line">
         </div>
@@ -494,12 +479,12 @@
                     </div>
                 </div>
                 @else
-                <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                     Log in
                 </a>
 
                 @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                     Register
                 </a>
                 @endif
@@ -524,96 +509,26 @@
             </a>
             @endforeach
         </ul>
-        <a class="d-flex mr-3 nav-link">CONTATO</a>
+        <a class="d-flex mr-3 nav-link" href="{{route('contato.index')}}">CONTATO</a>
     </div>
     <hr>
-    </nav>
-    
+        </nav>
     </header>
 
-    <h2>PRODUTO</h2>
 
-    <!-- Card do Produto -->
-    <div class="card mb-2">
-        <div class="card_produto">
-            <div class="row g-0">
-                <div class="col-md-4">
-
-                    <!-- Imagem do Produto -->
-                    <div id="carouselExample" class="carousel slide" data-ride="carousel">
-
-                        <!-- foreach que puxa as imagens do banco -->
-                        <!-- Imagem do Produto -->
-                        <div class="carousel-inner">
-                            @foreach($produto->Imagem as $key => $img)
-                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                <img src="{{ $img->IMAGEM_URL }}" class="d-block w-100" alt="Imagem {{ $key }}">
-                            </div>
-                            @endforeach
-                        </div>
-
-                        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <!-- Informações do Produto -->
-                        <p class="card-title">{{ $produto->PRODUTO_NOME }}</p>
-                        <p><s>De: R$ <span id="precoOriginal">{{ $produto->PRODUTO_PRECO }}</span></s></p>
-                        <p>Por: R$ <span id="precoComDesconto"></span></p>
-
-                        <!-- Estoque -->
-                        <p class="card-text">Estoque: <small id="estoque">{{ $produto->Estoque->PRODUTO_QTD }}</small></p>
-
-                        <!-- Botões de Adicionar/Remover do estoque -->
-                        <button class="btn" onclick="adicionar()">+</button>
-                        <span id="quantidade">1</span>
-                        <button class="btn" onclick="remover()">-</button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-custom" style="margin-left: 20px;" >Adicionar</button>
-                    </div>
-                </div>
+    <div class="container mt-4 mb-3">
+        <div class="card text-center">
+            <div class="card-header">
+                <h1>Pedido Concluído</h1>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Obrigado pela sua compra!</h5>
+                <p class="card-text">Seu pedido foi realizado com sucesso. Em breve você receberá um e-mail com os detalhes da sua compra.</p>
+                <a href="{{ route('index') }}" class="btn btn-primary">Voltar para a página inicial</a>
             </div>
         </div>
     </div>
-    <h3 class="title-desc">DESCRIÇÃO</h3>
-    <textarea class="card-body2" name="descricao_produto" rows="6" cols="50" disabled>
-    {{ $produto->PRODUTO_DESC }}
-    </textarea>
 
-    <h2>Quem viu também gostou</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach($produtosRelacionados as $produtoRelacionado)
-        <div class="col">
-            <div class="cardd">
-                @if($produtoRelacionado->Imagem->isNotEmpty())
-                <a href="{{ route('produto.show', $produtoRelacionado->PRODUTO_ID) }}"><img src="{{ $produtoRelacionado->Imagem->first()->IMAGEM_URL }}" class="img-top" alt="Imagem do Produto"></a>
-                @else
-                <a href="{{ route('produto.show', $produtoRelacionado->PRODUTO_ID) }}"><img src="..." class="img-top" alt="Imagem Padrão"></a>
-                @endif
-                <div class="card-body">
-                    <h5 class="card-titlee"><a href="{{ route('produto.show', $produtoRelacionado->PRODUTO_ID) }}">{{ $produtoRelacionado->PRODUTO_NOME }}</a>
-                    </h5>
-                    <h6 class="card-precoo">R$ {{ $produtoRelacionado->PRODUTO_PRECO }}</h6>
-                    <p class="card-textt">à vista</p>
-                    <a href="{{ route('produto.show', $produtoRelacionado->PRODUTO_ID) }}"><button class="btn btn-primary custom-btn" type="button">Adicionar</button></a>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-
-    <!-- Footer -->
     <footer class="d-flex">
         <img class="imgFooter" src="{{asset('logo.png')}}" alt="">
         <div class="redesSociais">
@@ -624,7 +539,9 @@
                 <a href=""><img class="redesImg" src="{{asset('face.png')}}" alt=""></a>
                 <a href=""><img class="redesImg" src="{{asset('linked.png')}}" alt=""></a>
             </div>
-            <p>Fale Conosco</p>
+            <a href="{{asset('contato')}}">
+                <p>Fale Conosco</p>
+            </a>
             <p>Troca e Devolução</p>
         </div>
         <div class="pagamento">
@@ -641,58 +558,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Função para adicionar quantidade
-        function adicionar() {
-            var quantidadeElement = document.getElementById('quantidade');
-            var estoqueElement = document.getElementById('estoque');
-
-            var quantidade = parseInt(quantidadeElement.textContent);
-            var estoque = parseInt(estoqueElement.textContent);
-
-            if (quantidade < estoque) {
-                quantidade++;
-                quantidadeElement.textContent = quantidade;
-            } else {
-                alert('Estoque insuficiente!');
-
-            }
-        }
-
-        // Função para remover quantidade
-        function remover() {
-            var quantidadeElement = document.getElementById('quantidade');
-
-            var quantidade = parseInt(quantidadeElement.textContent);
-
-            if (quantidade > 1) {
-                quantidade--;
-                quantidadeElement.textContent = quantidade;
-            }
-        }
-
-        // função para calcular o valor atual - o desconto
-        document.addEventListener('DOMContentLoaded', function() {
-
-            var precoOriginal = parseFloat('{{ $produto->PRODUTO_PRECO }}');
-            var desconto = parseFloat('{{ $produto->PRODUTO_DESCONTO }}');
-            var precoComDesconto = precoOriginal - desconto;
-
-            var precoComDescontoElement = document.getElementById('precoComDesconto');
-
-            precoComDescontoElement.textContent = precoComDesconto.toFixed(2); // Formatar para duas casas decimais
-        });
-
-        document.getElementById('form-pesquisa').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            var searchTerm = document.getElementById('search-input').value.trim();
-
-            window.location.href = "{{ route('pesquisar.produto') }}?q=" + encodeURIComponent(searchTerm);
-        });
-    </script>
-
 </body>
 
 </html>
